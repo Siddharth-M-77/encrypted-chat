@@ -1,0 +1,44 @@
+# ---- Dependencies ----
+node_modules/
+
+# ---- Secrets: never commit real environment files (the .example files stay tracked) ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# ---- Build output ----
+dist/
+build/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# ---- Runtime data (user uploads are encrypted blobs, still not source) ----
+server/uploads/
+uploads/
+.data/
+*.rdb
+dump.rdb
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+
+# ---- PM2 ----
+.pm2/
+ecosystem.local.config.cjs
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp

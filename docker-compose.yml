@@ -1,0 +1,36 @@
+# Local development infrastructure for M Talk: MongoDB, Redis and coturn.
+services:
+  mongo:
+    image: mongo:7
+    container_name: mtalk-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: mtalk-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  coturn:
+    image: coturn/coturn:4.6
+    container_name: mtalk-coturn
+    restart: unless-stopped
+    # Config is mounted read-only. The shared secret must match TURN_SECRET in server/.env.
+    command: ["-c", "/etc/coturn/turnserver.conf"]
+    volumes:
+      - ./docker/coturn/turnserver.conf:/etc/coturn/turnserver.conf:ro
+    ports:
+      - "3478:3478/tcp"
+      - "3478:3478/udp"
+      - "49160-49200:49160-49200/udp"
+
+volumes:
+  mongo-data:
+  redis-data:
